@@ -33,17 +33,17 @@ def get_email():
     lines = file_name.read().split('#', 1)
     return lines
 
-# quelques variables globales utiles
+# global variables specify the repertories to our collection data
 PATH_TO_HAM_DIR = "/home/ubuntu18/Naive_Bayes_Spam_Classifier/emails/ham"
 PATH_TO_SPAM_DIR = "/home/ubuntu18/Naive_Bayes_Spam_Classifier/emails/spam"
 
 SPAM_TYPE = "This email is <SPAM>"
 HAM_TYPE = "This email is <not SPAM>"
 
-#les tableaux X et Y seront de la meme taille et ordonnes
-X = [] # represente l'input Data (ici les mails)
-#indique s'il s'agit d'un mail ou non
-Y = [] #les etiquettes (labels) pour le training set
+# X and Y must be with the same size
+X = [] # This array repesents input Data (mails)
+# Y tells us if there is an email or not
+Y = [] # labels useful for training set
 
 def readFilesFromDirectory(path, classification):
     os.chdir(path)
@@ -53,10 +53,9 @@ def readFilesFromDirectory(path, classification):
         X.append(message)
         Y.append(classification)
 
-
-#fonction de lecture du contenu d'un fichier texte donne.
-#ici, on fait un peu de traitement pour ne prendre en compte que le "corps du mail".
-# On ignorer les en-tetes des mails
+#function reads the content of a given file.
+#here, we do a little processing to take into account only the "body of the mail".
+# We ignore email headers
 
 def extract_mail_body(file_name_str):
     inBody = False
@@ -71,7 +70,8 @@ def extract_mail_body(file_name_str):
     file_descriptor.close()
     return message
 
-#appel de la fonction de chargement des mails (charger les mail normaux ensuite les SPAM)
+#create another function, it will be used by our tkinter application 
+
 def Applique():
     readFilesFromDirectory(PATH_TO_HAM_DIR, HAM_TYPE)
     readFilesFromDirectory(PATH_TO_SPAM_DIR, SPAM_TYPE)
